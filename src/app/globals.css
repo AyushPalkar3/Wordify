@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/*
+  Design concept: library card catalog.
+  A personal vocabulary library, rendered as a drawer of index cards.
+  Words and phrases are structurally different things in this app,
+  so they get their own accent colors everywhere: gold for words,
+  teal for phrases. That color-coding is information, not decoration.
+*/
+
+:root {
+  --paper: #edeee7;         /* catalog-drawer grey, not warm cream */
+  --paper-card: #f7f6f0;    /* index card stock, slightly lighter */
+  --ink: #1f2430;           /* near-black ink navy */
+  --ink-soft: #565c6b;      /* secondary text */
+  --rule: #d3d0c2;          /* aged tan rule lines */
+  --rule-soft: #e2dfd2;
+
+  --word: #8a5d19;          /* ochre — words (darkened from #a9721f for AA contrast) */
+  --word-tint: #f1e6d3;
+  --phrase: #276b64;        /* deep teal — phrases */
+  --phrase-tint: #dcece9;
+
+  --danger: #9a3e33;
+  --danger-tint: #f2e0dc;
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-card: var(--paper-card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+  --color-word: var(--word);
+  --color-word-tint: var(--word-tint);
+  --color-phrase: var(--phrase);
+  --color-phrase-tint: var(--phrase-tint);
+  --color-danger: var(--danger);
+  --color-danger-tint: var(--danger-tint);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  border-color: var(--rule);
+}
+
+/* Buttons already set their own focus-visible outline color via Tailwind
+   classes; this covers inputs and links, which don't. */
+input:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* subtle linen texture so the catalog grey isn't flat */
+.bg-catalog {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(var(--rule-soft) 0.5px, transparent 0.5px);
+  background-size: 5px 5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
