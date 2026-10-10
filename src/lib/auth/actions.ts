@@ -78,6 +78,21 @@ export async function loginAction(
   }
 }
 
+export async function signInWithGoogleAction(): Promise<AuthActionState> {
+  try {
+    await signIn("google", { redirectTo: "/dashboard" });
+  } catch (error) {
+    // NEXT_REDIRECT is thrown by a successful signIn — let it propagate.
+    if (error instanceof AuthError) {
+      // Covers a missing/invalid AUTH_GOOGLE_ID / AUTH_GOOGLE_SECRET as well
+      // as the user declining on Google's consent screen — neither should
+      // leak internals (env var names, stack traces) to the browser.
+      return { error: "Google sign-in is unavailable right now. Please try again or use your email and password." };
+    }
+    throw error;
+  }
+}
+
 export async function logoutAction() {
   await signOut({ redirectTo: "/" });
 }
